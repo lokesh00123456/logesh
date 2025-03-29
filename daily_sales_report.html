@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Sales Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .report-container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .report-container h1 {
+            text-align: center;
+            color: #333;
+        }
+        .report-section {
+            margin-bottom: 20px;
+        }
+        .report-section h2 {
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 5px;
+        }
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .chart {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+        }
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .filters select, .filters input {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+    <!-- Include Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="report-container">
+        <h1>Daily Sales Report</h1>
+
+        <div class="filters">
+            <label for="dateFilter">Date:</label>
+            <input type="date" id="dateFilter" value="2023-10-01">
+
+            <label for="categoryFilter">Category:</label>
+            <select id="categoryFilter">
+                <option value="all">All</option>
+                <option value="electronics">Electronics</option>
+                <option value="clothing">Clothing</option>
+                <option value="groceries">Groceries</option>
+            </select>
+
+            <button onclick="applyFilters()">Apply Filters</button>
+        </div>
+
+        <div class="report-section">
+            <h2>Sales Overview</h2>
+            <p>Total Sales: $5,000</p>
+            <p>Number of Transactions: 120</p>
+            <p>Average Order Value: $41.67</p>
+            <div class="chart-container">
+                <canvas id="salesChart" class="chart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Function to render the sales chart
+        function renderSalesChart(date, category) {
+            const ctxSales = document.getElementById('salesChart').getContext('2d');
+
+            // Sample data for the sales chart
+            const data = {
+                labels: ['Morning', 'Afternoon', 'Evening'],
+                datasets: [{
+                    label: 'Hourly Sales',
+                    data: [1500, 2000, 1500], // Sample data
+                    backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                    borderColor: 'rgba(0, 123, 255, 1)',
+                    borderWidth: 1
+                }]
+            };
+
+            // Configuration options for the chart
+            const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            };
+
+            // Render the chart
+            new Chart(ctxSales, config);
+        }
+
+        // Function to apply filters
+        function applyFilters() {
+            const date = document.getElementById('dateFilter').value;
+            const category = document.getElementById('categoryFilter').value;
+
+            // Here you would typically fetch data based on filters
+            // For this example, we'll just call the render function
+            renderSalesChart(date, category);
+        }
+
+        // Initial render
+        renderSalesChart();
+    </script>
+</body>
+</html>

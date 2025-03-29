@@ -1,0 +1,82 @@
+{
+  "restaurant_name": "Delicious Bites",
+  "menu_items": {
+    "9183b01d-f724-4193-8d21-6878bcf13b9c": {
+      "id": "9183b01d-f724-4193-8d21-6878bcf13b9c",
+      "name": "Margherita Pizza",
+      "description": "Classic tomato and mozzarella pizza",
+      "price": 12.99,
+      "category": "Pizza",
+      "availability": true
+    },
+    "fa1a64df-5b7a-4038-8917-07359aa837c1": {
+      "id": "fa1a64df-5b7a-4038-8917-07359aa837c1",
+      "name": "Pepperoni Pizza",
+      "description": "Pizza with pepperoni and cheese",
+      "price": 14.99,
+      "category": "Pizza",
+      "availability": true
+    },
+    "81f523a4-85f5-4e33-9cef-9f0dc433de20": {
+      "id": "81f523a4-85f5-4e33-9cef-9f0dc433de20",
+      "name": "Caesar Salad",
+      "description": "Romaine lettuce with Caesar dressing and croutons",
+      "price": 8.99,
+      "category": "Salad",
+      "availability": true
+    },
+    "18147070-41b4-4105-a763-f4d8cab434f8": {
+      "id": "18147070-41b4-4105-a763-f4d8cab434f8",
+      "name": "Spaghetti Bolognese",
+      "description": "Spaghetti with meat sauce",
+      "price": 15.99,
+      "category": "Pasta",
+      "availability": true
+    },
+    "8c539647-9522-4656-ac65-9d4b1b5d3a94": {
+      "id": "8c539647-9522-4656-ac65-9d4b1b5d3a94",
+      "name": "Chocolate Cake",
+      "description": "Rich chocolate cake with ganache",
+      "price": 7.99,
+      "category": "Dessert",
+      "availability": true
+    },
+    "eb5b0ba8-e3f6-4d68-afa8-4512648762af": {
+      "id": "eb5b0ba8-e3f6-4d68-afa8-4512648762af",
+      "name": "Tiramisu",
+      "description": "Classic Italian coffee-flavored dessert",
+      "price": 8.99,
+      "category": "Dessert",
+      "availability": true
+    },
+    "c54885da-4e4b-4abf-8f61-fcf24ede32c0": {
+      "id": "c54885da-4e4b-4abf-8f61-fcf24ede32c0",
+      "name": "Soft Drink",
+      "description": "Various sodas",
+      "price": 2.99,
+      "category": "Beverage",
+      "availability": true
+    },
+    "809c1592-6e84-4c34-a13e-84264dbb6b01": {
+      "id": "809c1592-6e84-4c34-a13e-84264dbb6b01",
+      "name": "Coffee",
+      "description": "Freshly brewed coffee",
+      "price": 3.99,
+      "category": "Beverage",
+      "availability": true
+    }
+  },
+  "active_orders": {
+    "ba5aadf7-6196-48d6-a270-0ac851d49b5f": {
+      "id": "ba5aadf7-6196-48d6-a270-0ac851d49b5f",
+      "table_number": 5,
+      "server_name": "indhu",
+      "items": [],
+      "status": "pending",
+      "created_at": "2025-03-14T23:26:02.937576",
+      "updated_at": "2025-03-14T23:26:02.937645"
+    }
+  },
+  "completed_orders": {},
+  "daily_revenue": 0.0
+}

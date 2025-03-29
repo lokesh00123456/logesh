@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Feedback Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .report-container {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .report-container h1 {
+            text-align: center;
+            color: #333;
+        }
+        .report-section {
+            margin-bottom: 40px;
+        }
+        .report-section h2 {
+            border-bottom: 2px solid #007BFF;
+            padding-bottom: 5px;
+        }
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            height: 300px;
+        }
+        .chart {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+        }
+        .feedback-form {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+        .feedback-form label {
+            margin-top: 10px;
+            color: #555;
+        }
+        .feedback-form textarea {
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .feedback-form button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .feedback-form button:hover {
+            background-color: #0056b3;
+        }
+        .feedback-list {
+            margin-top: 20px;
+        }
+        .feedback-item {
+            background: #f9f9f9;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+        .feedback-item h3 {
+            margin: 0;
+            font-size: 1.2em;
+        }
+        .feedback-item p {
+            margin: 5px 0 0;
+            font-size: 1em;
+            color: #555;
+        }
+    </style>
+    <!-- Include Chart.js Library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="report-container">
+        <h1>Customer Feedback Report</h1>
+
+        <div class="report-section">
+            <h2>Submit Feedback</h2>
+            <form class="feedback-form" id="feedbackForm">
+                <label for="customerFeedback">Your Feedback:</label>
+                <textarea id="customerFeedback" name="customerFeedback" rows="4" required></textarea>
+                <button type="button" onclick="submitFeedback()">Submit Feedback</button>
+            </form>
+        </div>
+
+        <div class="report-section">
+            <h2>Feedback Sentiment Analysis</h2>
+            <div class="chart-container">
+                <canvas id="sentimentChart" class="chart"></canvas>
+            </div>
+        </div>
+
+        <div class="report-section">
+            <h2>Recent Feedback</h2>
+            <div class="feedback-list" id="feedbackList">
+                <!-- Feedback items will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Global variable for the chart
+        let sentimentChart = null;
+
+        // Function to submit feedback
+        function submitFeedback() {
+            const feedback = document.getElementById('customerFeedback').value;
+
+            if (!feedback) {
+                alert("Please provide your feedback.");
+                return;
+            }
+
+            // Add feedback to the list
+            const feedbackList = document.getElementById('feedbackList');
+            const feedbackItem = document.createElement('div');
+            feedbackItem.className = 'feedback-item';
+            feedbackItem.innerHTML = `<h3>Customer</h3><p>${feedback}</p>`;
+            
+            // Add at the beginning to show most recent first
+            if (feedbackList.firstChild) {
+                feedbackList.insertBefore(feedbackItem, feedbackList.firstChild);
+            } else {
+                feedbackList.appendChild(feedbackItem);
+            }
+
+            // Clear the input field
+            document.getElementById('customerFeedback').value = '';
+
+            // Update the sentiment chart
+            updateSentimentChart();
+        }
+
+        // Function to render the sentiment chart
+        function renderSentimentChart(sentimentData) {
+            const ctx = document.getElementById('sentimentChart').getContext('2d');
+
+            const config = {
+                type: 'bar',
+                data: sentimentData,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    }
+                }
+            };
+
+            // Destroy the existing chart if it exists
+            if (sentimentChart) {
+                sentimentChart.destroy();
+            }
+
+            // Create new chart
+            sentimentChart = new Chart(ctx, config);
+        }
+
+        // Function to update the sentiment chart
+        function updateSentimentChart() {
+            // Simulate sentiment analysis
+            const positiveCount = Math.floor(Math.random() * 10) + 10;
+            const neutralCount = Math.floor(Math.random() * 5) + 5;
+            const negativeCount = Math.floor(Math.random() * 5);
+
+            const sentimentData = {
+                labels: ['Positive', 'Neutral', 'Negative'],
+                datasets: [{
+                    label: 'Feedback Sentiment',
+                    data: [positiveCount, neutralCount, negativeCount],
+                    backgroundColor: ['rgba(75, 192, 192, 0.6)', 'rgba(255, 159, 64, 0.6)', 'rgba(255, 99, 132, 0.6)'],
+                    borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 159, 64, 1)', 'rgba(255, 99, 132, 1)'],
+                    borderWidth: 1
+                }]
+            };
+
+            renderSentimentChart(sentimentData);
+        }
+
+        // Wait for the DOM to be fully loaded before initializing the chart
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add some initial sample feedback
+            const feedbackExamples = [
+                "The product is excellent! Very easy to use and saved me a lot of time.",
+                "Works as expected, but could use some improvements in the user interface.",
+                "Customer service was very helpful when I had questions."
+            ];
+
+            const feedbackList = document.getElementById('feedbackList');
+            
+            // Add initial feedback items
+            feedbackExamples.forEach(text => {
+                const item = document.createElement('div');
+                item.className = 'feedback-item';
+                item.innerHTML = `<h3>Customer</h3><p>${text}</p>`;
+                feedbackList.appendChild(item);
+            });
+
+            // Initialize the chart
+            setTimeout(updateSentimentChart, 100); // Small delay to ensure Chart.js is ready
+        });
+    </script>
+</body>
+</html>
